@@ -29,6 +29,6 @@ setup(
         'jupyter-client'
     ],
     entry_points={
-        'console_scripts': ['nwbgui=nwb_qt_gui.command_line:main'],
+        'console_scripts': ['nwbgui=nwb_qt_gui.gui:command_line_shortcut'],
     }
 )

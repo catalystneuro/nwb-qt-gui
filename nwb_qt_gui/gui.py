@@ -732,3 +732,23 @@ def nwb_qt_gui(metafile=None, conversion_module=None, source_paths=None,
         nwbwidgets=load_nwbwidgets
     )
     sys.exit(app.exec_())
+
+
+# Command line shortcut
+def command_line_shortcut():
+    here = Path(__file__).resolve().parent
+    metafile = here / 'templates/template_metafile.yml'
+    conversion_module = here / 'templates/template_conversion_module.py'
+
+    source_paths = {}
+    source_paths['file1'] = {'type': 'file', 'path': ''}
+    source_paths['file2'] = {'type': 'file', 'path': ''}
+
+    kwargs_fields = {}
+
+    nwb_qt_gui(
+        metafile=metafile,
+        conversion_module=conversion_module,
+        source_paths=source_paths,
+        kwargs_fields=kwargs_fields
+    )
