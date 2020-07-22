@@ -31,8 +31,7 @@ import os
 class Application(QMainWindow):
     def __init__(self, metafile=None, conversion_module=None, source_paths=None,
                  kwargs_fields=None, extension_modules=None, extension_forms=None,
-                 show_add_del=False, nwbfile_loc=None, conversion_class=None,
-                 nwbwidgets=True):
+                 nwbfile_loc=None, conversion_class=None, nwbwidgets=True):
         super().__init__()
         # Dictionary storing source files paths
         self.source_paths = source_paths
@@ -40,8 +39,6 @@ class Application(QMainWindow):
         self.conversion_module_path = conversion_module
         # Dictionary storing custom boolean options (to form checkboxes)
         self.kwargs_fields = kwargs_fields
-        # Boolean control to either show/hide the option for add/del Groups
-        self.show_add_del = show_add_del
         # Extension modules
         self.extension_modules = extension_modules
         # Updates name_to_gui_class with extension classes
@@ -62,8 +59,8 @@ class Application(QMainWindow):
         self.init_gui()
         self.init_meta_tab()
         self.load_meta_file(filename=metafile)
-        # if nwbwidgets:
-        self.init_nwb_explorer()
+        if nwbwidgets:
+            self.init_nwb_explorer()
         self.show()
 
     def init_gui(self):
@@ -706,8 +703,7 @@ if __name__ == '__main__':
 # If it is imported as a module
 def nwb_qt_gui(metafile=None, conversion_module=None, source_paths=None,
                kwargs_fields=None, extension_modules=None, extension_forms=None,
-               show_add_del=False, nwbfile_loc=None, conversion_class=None,
-               load_nwbwidgets=True):
+               nwbfile_loc=None, conversion_class=None, load_nwbwidgets=True):
     """Sets up QT application."""
     if conversion_module:
         warnings.warn('use of conversion_module will be replaced by conversion_class'
@@ -726,7 +722,6 @@ def nwb_qt_gui(metafile=None, conversion_module=None, source_paths=None,
         kwargs_fields=kwargs_fields,
         extension_modules=extension_modules,
         extension_forms=extension_forms,
-        show_add_del=show_add_del,
         nwbfile_loc=nwbfile_loc,
         conversion_class=conversion_class,
         nwbwidgets=load_nwbwidgets
