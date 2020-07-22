@@ -1,7 +1,7 @@
 # Coomand line shortcurt to open NWBQtGUI
 # authors: Luiz Tauffer and Ben Dichter
 # ------------------------------------------------------------------------------
-from nwb_qt_gui.gui import nwb_conversion_gui
+from nwb_qt_gui.gui import nwb_qt_gui
 from pathlib import Path
 
 
@@ -16,7 +16,7 @@ def main():
 
     kwargs_fields = {}
 
-    nwb_conversion_gui(
+    nwb_qt_gui(
         metafile=metafile,
         conversion_module=conversion_module,
         source_paths=source_paths,

@@ -24,11 +24,11 @@ setup(
     package_data={'': ['template_metafile.yml']},
     include_package_data=True,
     install_requires=[
-        'pynwb', 'tqdm', 'natsort', 'numpy', 'scipy',
-        'pandas', 'jupyter', 'matplotlib', 'h5py', 'pyyaml', 'jupyter-client',
-        'PySide2', 'nwbwidgets', 'psutil', 'voila'
+        'pynwb', 'nwb-conversion-tools', 'numpy', 'PySide2', 'nwbwidgets',
+        'psutil', 'voila', 'pandas', 'jupyter', 'matplotlib', 'h5py', 'pyyaml',
+        'jupyter-client'
     ],
     entry_points={
-        'console_scripts': ['nwb-gui=nwb_qt_gui.command_line:main'],
+        'console_scripts': ['nwbgui=nwb_qt_gui.command_line:main'],
     }
 )

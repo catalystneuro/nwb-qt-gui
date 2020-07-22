@@ -22,6 +22,7 @@ import psutil
 import shutil
 import datetime
 import importlib
+import warnings
 import yaml
 import sys
 import os
@@ -458,8 +459,9 @@ class Application(QMainWindow):
         nb = nbf.v4.new_notebook()
         # Imports extension modules
         imports_text = ""
-        for k, v in self.extension_modules.items():
-            imports_text += "\nfrom " + k + " import " + ", ".join(v)
+        if self.extension_modules:
+            for k, v in self.extension_modules.items():
+                imports_text += "\nfrom " + k + " import " + ", ".join(v)
         code = """
             from nwbwidgets import nwb2widget
             import pynwb
@@ -586,9 +588,9 @@ class Application(QMainWindow):
         msg = QMessageBox()
         msg.setWindowTitle("About NWB conversion")
         msg.setIcon(QMessageBox.Information)
-        msg.setText("Version: 0.2.0 \n"
-                    "Shared tools for converting data from various formats to NWB:N 2.0.\n ")
-        msg.setInformativeText("<a href='https://github.com/catalystneuro/nwb-conversion-tools'>NWB conversion tools Github page</a>")
+        msg.setText("Version: 0.1.0 \n"
+                    "GUI for NWB conversion and exploration.\n ")
+        msg.setInformativeText("<a href='https://github.com/catalystneuro/nwb-qt-gui'>NWBQtGUI Github page</a>")
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
@@ -662,7 +664,7 @@ class ConversionFunctionThread(QtCore.QThread):
             error = ValueError('select a save location for nwbfile')
             self.error = error.__class__.__name__ + ':' + str(error)
             raise error
-        if self.parent.conversion_module_path:# if not an empty string (if value was selected from gui)
+        if self.parent.conversion_module_path:  # if not an empty string (if value was selected from gui)
             try:
                 mod_file = self.parent.conversion_module_path
                 spec = importlib.util.spec_from_file_location(os.path.basename(mod_file).strip('.py'), mod_file)
@@ -708,8 +710,8 @@ def nwb_qt_gui(metafile=None, conversion_module=None, source_paths=None,
                load_nwbwidgets=True):
     """Sets up QT application."""
     if conversion_module:
-        raise DeprecationWarning('use of conversion_module will be replaced by conversion_class'
-                                 'with its \'run_conversion\' method called directly')
+        warnings.warn('use of conversion_module will be replaced by conversion_class'
+                      'with its \'run_conversion\' method called directly')
     app = QtCore.QCoreApplication.instance()
     if conversion_class is None and conversion_module is None:
         raise Exception('provide one of conversion_module:str or conversion_class:class')
